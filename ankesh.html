@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BharatGuru | Incredible India Next-Gen Travel & Tourism</title>
+  <meta name="description" content="BharatGuru - Explore iconic Indian heritage, voice search, AI itinerary generator, live audio tours, and curated booking portals." />
+  <link rel="icon" type="image/png" href="Fevicon.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Top Sticky Navigation Bar -->
+  <header class="top_Header">
+    <div class="nav-container">
+      <a href="index.html" class="brand-wrapper">
+        <div class="MainLogo">Bharat<span class="accent">Guru</span> 🇮🇳</div>
+        <div class="sub-txt">IWP Coursework | IIPS DAVV</div>
+      </a>
+
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="#destinations" class="nav-link active">Destinations</a></li>
+        <li><a href="#indore-spotlight" class="nav-link">Indore Special</a></li>
+        <li><a href="#ai-itinerary" class="nav-link">AI Itinerary</a></li>
+        <li><a href="#travel-quiz" class="nav-link">Vibe Quiz</a></li>
+        <li><a href="#trip-planner" class="nav-link">Budget Calc</a></li>
+        <li><a href="#booking-portals" class="nav-link">Portals</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <!-- Theme Toggle -->
+        <button id="themeToggleBtn" class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle Dark/Light Mode">🌙</button>
+
+        <!-- Wishlist Button -->
+        <button class="wishlist-btn-nav" onclick="openWishlistDrawer()" title="View Saved Places">
+          ❤️ Saved <span class="wishlist-badge">0</span>
+        </button>
+
+        <!-- Dynamic User / Auth Container -->
+        <div id="navAuthContainer" style="display: flex; align-items: center; gap: 8px;">
+          <a href="login.html" class="btn btn-ghost">Login</a>
+          <a href="registationform.html" class="btn btn-primary">Register</a>
+        </div>
+
+        <button class="mobile-toggle" id="mobileMenuBtn" aria-label="Toggle Navigation">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Live Climate & Weather Ticker Bar -->
+  <div class="weather-ticker-bar">
+    <div class="container">
+      <div class="weather-scroll" id="weatherTicker">
+        <!-- Dynamic Weather Chips -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero Area with Voice Search -->
+  <section class="Hero_Area">
+    <div class="container">
+      <div class="hero-content">
+        <span class="yellow-pill">✦ Hamara Bharat • Incredible India ✦</span>
+        <h1>Visit India, <br><i>Feel the Soul.</i></h1>
+        <p class="hero-desc">
+          From the snow-capped peaks of the Himalayas to the serene backwaters of Kerala and the royal heritage of Madhya Pradesh. Experience voice search, AI day planners, and audio guides.
+        </p>
+        
+        <!-- Live Filter & Voice Search Box -->
+        <div class="search-container">
+          <div class="search_wrap">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchBox" placeholder="Search Agra, Indore, Varanasi, Kerala, Jaipur, food..." />
+            <button type="button" id="voiceMicBtn" class="btn-mic" title="Voice Search: Speak Destination">🎙️</button>
+            <div class="search-actions">
+              <button type="button" class="btn-search" onclick="filterDestinations(document.getElementById('searchBox').value)">SEARCH</button>
+              <button type="button" class="btn-google" onclick="searchGoogle()" title="Search on Web">🌐 Web</button>
+            </div>
+          </div>
+
+          <!-- Category Quick Filter Badges -->
+          <div class="category-filter">
+            <button class="cat-btn active" data-cat="all">All Spots</button>
+            <button class="cat-btn" data-cat="heritage">🏛 Heritage & Forts</button>
+            <button class="cat-btn" data-cat="spiritual">🕉 Spiritual & Holy</button>
+            <button class="cat-btn" data-cat="indore">🍢 Indore Special</button>
+            <button class="cat-btn" data-cat="nature">🌴 Nature & Hills</button>
+          </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-number">28</span>
+            <span class="stat-label">States & 8 UTs</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">42+</span>
+            <span class="stat-label">UNESCO World Heritage</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">10,000+</span>
+            <span class="stat-label">Years of Living Culture</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">100%</span>
+            <span class="stat-label">Warm Hospitality</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Destinations Section -->
+  <section class="section" id="destinations">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-pill">Top Picks & Iconic Landmarks</span>
+        <h2 class="section-title underline-gold">Explore India's Crown Jewels</h2>
+        <p class="section-subtitle">Click the heart icon to save to your Wishlist, or open any guide to listen to the audio tour and view details.</p>
+      </div>
+
+      <!-- Destination Grid -->
+      <div class="destinations-grid" id="destinationsGrid">
+        <!-- Rendered dynamically by script.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Indore & MP Cultural Spotlight -->
+  <section class="section section-alt" id="indore-spotlight">
+    <div class="container">
+      <div class="spotlight-banner">
+        <span class="yellow-pill" style="background: var(--goldy); color: #fff;">IIPS DAVV Student Feature</span>
+        <h2>Indore: The Cleanest City & Food Capital of India</h2>
+        <p>
+          Home to Devi Ahilya Vishwavidyalaya, Indore seamlessly blends grand Maratha-Holkar royal legacy with India’s most celebrated culinary scenes at Sarafa and Chappan Dukan.
+        </p>
+
+        <div class="spotlight-grid">
+          <div class="spotlight-card">
+            <div class="spotlight-icon">🏰</div>
+            <h4>Rajwada & Lal Bagh</h4>
+            <p>7-storey Holkar dynasty palace architecture with French-inspired interiors and lush garden estates.</p>
+          </div>
+          <div class="spotlight-card">
+            <div class="spotlight-icon">🍢</div>
+            <h4>Sarafa Night Market</h4>
+            <p>Jewelry market by day transforming into India’s famous midnight street food paradise (Garadu, Bhutte Ka Kees, Joshi Dahi Bada).</p>
+          </div>
+          <div class="spotlight-card">
+            <div class="spotlight-icon">🌸</div>
+            <h4>Chappan Dukan</h4>
+            <p>Indore's iconic 56-shop gourmet walkway serving world-famous Poha-Jalebi, sev varieties, and artisanal sweets.</p>
+          </div>
+          <div class="spotlight-card">
+            <div class="spotlight-icon">🕉</div>
+            <h4>Mahakal Lok Corridor (Ujjain)</h4>
+            <p>Just 55 km from Indore, experience the magnificent spiritual corridor of Lord Mahakaleshwar Jyotirlinga.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Day-by-Day Itinerary Builder -->
+  <section class="section" id="ai-itinerary">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-pill">Smart Travel Wizard</span>
+        <h2 class="section-title underline-gold">AI Day-by-Day Itinerary Generator</h2>
+        <p class="section-subtitle">Generate custom hour-by-hour schedules with morning, afternoon, evening, and nightlife plans.</p>
+      </div>
+
+      <div class="itinerary-box">
+        <form id="itineraryBuilderForm">
+          <div class="planner-grid">
+            <div class="form-group">
+              <label class="form-label">Destination</label>
+              <select id="itineraryDest" class="form-control" required>
+                <option value="Indore" selected>Indore & Ujjain (MP)</option>
+                <option value="Agra">Agra (Taj Mahal Circuit)</option>
+                <option value="Varanasi">Varanasi (Ghats & Temples)</option>
+                <option value="Jaipur">Jaipur (Pink City & Forts)</option>
+                <option value="Kerala">Kerala (Alleppey Backwaters)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Trip Length</label>
+              <select id="itineraryDays" class="form-control" required>
+                <option value="2">2 Days (Weekend Express)</option>
+                <option value="3" selected>3 Days (Comprehensive)</option>
+                <option value="5">5 Days (Grand Tour)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Travel Companions</label>
+              <select id="itineraryCompanion" class="form-control">
+                <option value="Solo Explorer">Solo Explorer</option>
+                <option value="College Friends / Group" selected>College Friends / Group</option>
+                <option value="Family Vacation">Family Vacation</option>
+                <option value="Couples Getaway">Couples Getaway</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Tour Pace</label>
+              <select id="itineraryPace" class="form-control">
+                <option value="Balanced" selected>Balanced (Culture & Food)</option>
+                <option value="Fast Paced">Fast Paced (Maximum Sightseeing)</option>
+                <option value="Relaxed">Relaxed (Leisure & Wellness)</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="text-align: center; margin-top: 10px;">
+            <button type="submit" class="btn btn-primary" style="padding: 12px 32px; font-size: 15px;">
+              ⚡ Generate Custom Day Schedule
+            </button>
+          </div>
+        </form>
+
+        <!-- Itinerary Output Card -->
+        <div id="itineraryResultWrapper" style="display: none; margin-top: 30px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 16px;">
+            <h3 style="font-family: 'Lora'; font-size: 20px;">📅 Your Customized Itinerary Schedule</h3>
+            <div style="display: flex; gap: 10px;">
+              <button class="btn btn-outline" onclick="copyItineraryText()">📋 Copy Text</button>
+              <button class="btn btn-gold" onclick="printItinerary()">🖨️ Print / Save PDF</button>
+            </div>
+          </div>
+          <div id="itineraryTimelineOutput" class="itinerary-timeline"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive "Find Your Travel Vibe" Quiz -->
+  <section class="section section-alt" id="travel-quiz">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-pill">Interactive Matcher</span>
+        <h2 class="section-title underline-gold">Find Your Perfect Indian Travel Vibe</h2>
+        <p class="section-subtitle">Answer 3 quick questions to discover which corner of India suits your soul best.</p>
+      </div>
+
+      <div class="quiz-container">
+        <!-- Question 1 -->
+        <div style="margin-bottom: 24px;">
+          <h4 style="font-size: 16px; margin-bottom: 12px;">1. What kind of landscape calls out to you?</h4>
+          <div class="quiz-options">
+            <button class="quiz-option-btn" data-q="landscape" data-val="heritage">
+              <span style="font-size: 26px;">🏰</span>
+              <strong>Palaces & Historic Forts</strong>
+            </button>
+            <button class="quiz-option-btn" data-q="landscape" data-val="mountains">
+              <span style="font-size: 26px;">🏔️</span>
+              <strong>High Himalayan Passes</strong>
+            </button>
+            <button class="quiz-option-btn" data-q="landscape" data-val="coastal">
+              <span style="font-size: 26px;">🌴</span>
+              <strong>Backwaters & Tropical Coast</strong>
+            </button>
+          </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div style="margin-bottom: 24px;">
+          <h4 style="font-size: 16px; margin-bottom: 12px;">2. What is your priority during travel?</h4>
+          <div class="quiz-options">
+            <button class="quiz-option-btn" data-q="vibe" data-val="food">
+              <span style="font-size: 26px;">🍢</span>
+              <strong>Street Food & Local Flavors</strong>
+            </button>
+            <button class="quiz-option-btn" data-q="vibe" data-val="spiritual">
+              <span style="font-size: 26px;">🕉️</span>
+              <strong>Peace & Spiritual Awakening</strong>
+            </button>
+            <button class="quiz-option-btn" data-q="vibe" data-val="heritage">
+              <span style="font-size: 26px;">📸</span>
+              <strong>Photography & Royal Heritage</strong>
+            </button>
+          </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div style="margin-bottom: 24px;">
+          <h4 style="font-size: 16px; margin-bottom: 12px;">3. Preferred Travel Atmosphere?</h4>
+          <div class="quiz-options">
+            <button class="quiz-option-btn" data-q="atmosphere" data-val="vibrant">
+              <span style="font-size: 26px;">🎉</span>
+              <strong>Vibrant Bazaars & Nightlife</strong>
+            </button>
+            <button class="quiz-option-btn" data-q="atmosphere" data-val="serene">
+              <span style="font-size: 26px;">🧘</span>
+              <strong>Serene, Quiet & Sacred</strong>
+            </button>
+            <button class="quiz-option-btn" data-q="atmosphere" data-val="adventure">
+              <span style="font-size: 26px;">🧗</span>
+              <strong>Rugged Adventure & Road Trips</strong>
+            </button>
+          </div>
+        </div>
+
+        <!-- Quiz Result Box -->
+        <div id="quizResultCard" class="quiz-result-card">
+          <div style="font-size: 36px; margin-bottom: 8px;">✨ 🎉 ✨</div>
+          <h3 style="font-size: 24px; color: var(--p-green-900); margin-bottom: 8px;" id="quizMatchName"></h3>
+          <p style="font-size: 15px; color: var(--text-main); margin-bottom: 16px;" id="quizMatchDesc"></p>
+          <a href="#destinations" class="btn btn-primary" onclick="document.getElementById('searchBox').value='Indore'; filterDestinations('Indore');">Explore This Destination →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Trip Planner & Cost Estimator -->
+  <section class="section" id="trip-planner">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-pill">Interactive Travel Assistant</span>
+        <h2 class="section-title underline-gold">Calculate Your Indian Trip Budget</h2>
+        <p class="section-subtitle">Plan your adventure with approximate costs covering accommodation, local transit, food, and sightseeing.</p>
+      </div>
+
+      <div class="planner-box">
+        <form id="tripPlannerForm">
+          <div class="planner-grid">
+            <div class="form-group">
+              <label class="form-label">Destination Circuit</label>
+              <select id="planDestination" class="form-control" required>
+                <option value="Golden Triangle (Delhi-Agra-Jaipur)">Golden Triangle (Delhi-Agra-Jaipur)</option>
+                <option value="Indore & Ujjain Heritage">Indore & Ujjain Heritage (MP)</option>
+                <option value="Varanasi & Prayagraj Spiritual">Varanasi & Prayagraj Spiritual</option>
+                <option value="Kerala Backwaters & Munnar">Kerala Backwaters & Munnar</option>
+                <option value="Ladakh Mountain Circuit">Ladakh Mountain Circuit</option>
+                <option value="Goa Coastal Getaway">Goa Coastal Getaway</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Number of Days</label>
+              <input type="number" id="planDays" class="form-control" min="1" max="30" value="4" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Number of Travelers</label>
+              <input type="number" id="planTravelers" class="form-control" min="1" max="20" value="2" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Travel Style / Budget</label>
+              <select id="planStyle" class="form-control">
+                <option value="backpacker">Budget / Backpacker (Hostels & Street Food)</option>
+                <option value="moderate" selected>Comfort / Moderate (3-Star & Private Cabs)</option>
+                <option value="luxury">Luxury (Heritage Hotels & Premium Experiences)</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="text-align: center; margin-top: 10px;">
+            <button type="submit" class="btn btn-primary" style="padding: 12px 32px; font-size: 15px;">
+              📊 Calculate Estimated Budget
+            </button>
+          </div>
+        </form>
+
+        <div id="plannerResult" class="planner-result">
+          <div class="result-header">
+            <h4 style="font-family: 'Lora'; font-size: 18px; color: var(--p-green-900);">Estimated Budget Breakdown</h4>
+            <div class="result-cost" id="resultCostText">₹0</div>
+          </div>
+          <p id="resultDetails" style="font-size: 14px; color: var(--text-main); margin-bottom: 8px;"></p>
+          <p style="font-size: 12px; color: var(--text-muted);">*Note: Estimates exclude long-distance flights and train reservations. Taxes & seasonal surcharges may vary.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Official Portals & Bookings -->
+  <section class="section section-alt" id="booking-portals">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-pill">Trusted Travel Resources</span>
+        <h2 class="section-title underline-gold">Official Portals & Booking Hub</h2>
+        <p class="section-subtitle">Verified portals for official government permits, railway bookings, flights, and curated holiday packages.</p>
+      </div>
+
+      <div class="portals-grid">
+        <a href="https://www.incredibleindia.gov.in" target="_blank" class="portal-card">
+          <span class="portal-tag">Official Government Portal</span>
+          <div class="portal-name">Incredible India <span>↗</span></div>
+          <p class="portal-desc">Ministry of Tourism official guidelines, cultural events calendar, e-Visa details, and heritage guides.</p>
+        </a>
+
+        <a href="https://www.irctc.co.in" target="_blank" class="portal-card">
+          <span class="portal-tag">Indian Railways</span>
+          <div class="portal-name">IRCTC Official <span>↗</span></div>
+          <p class="portal-desc">Direct train ticket reservations, Vande Bharat Express schedules, and luxury tourist train bookings.</p>
+        </a>
+
+        <a href="https://www.mptourism.com" target="_blank" class="portal-card">
+          <span class="portal-tag">State Tourism</span>
+          <div class="portal-name">Madhya Pradesh Tourism <span>↗</span></div>
+          <p class="portal-desc">Explore the Heart of Incredible India: Wildlife safaris at Kanha/Bandhavgarh, Mandu, and Khajuraho.</p>
+        </a>
+
+        <a href="https://www.easemytrip.com" target="_blank" class="portal-card">
+          <span class="portal-tag">Flight & Hotel Deals</span>
+          <div class="portal-name">EaseMyTrip <span>↗</span></div>
+          <p class="portal-desc">Zero convenience fee flights, bus tickets, budget stays, and holiday packages across India.</p>
+        </a>
+
+        <a href="https://www.tourmyindia.com" target="_blank" class="portal-card">
+          <span class="portal-tag">Custom Itineraries</span>
+          <div class="portal-name">Tour My India <span>↗</span></div>
+          <p class="portal-desc">Tailor-made wildlife safaris, pilgrimage packages, golden triangle tours, and local guides.</p>
+        </a>
+
+        <a href="https://www.expedia.com" target="_blank" class="portal-card">
+          <span class="portal-tag">International & Domestic</span>
+          <div class="portal-name">Expedia India <span>↗</span></div>
+          <p class="portal-desc">Comprehensive hotel aggregator, flight bundles, car rentals, and customer reviews.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="MainLogo" style="color: #ffffff; margin-bottom: 12px;">Bharat<span class="accent">Guru</span> 🇮🇳</div>
+          <p>Dedicated to helping students and travelers discover the unmatched heritage, culture, and natural beauty of India.</p>
+          <div style="margin-top: 16px; font-size: 13px; color: var(--goldy-light);">
+            📍 IIPS, Devi Ahilya Vishwavidyalaya (DAVV), Indore (M.P.)
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul class="footer-links">
+            <li><a href="#destinations">Heritage Destinations</a></li>
+            <li><a href="#indore-spotlight">Indore & MP Special</a></li>
+            <li><a href="#ai-itinerary">AI Day Planner</a></li>
+            <li><a href="#travel-quiz">Travel Vibe Quiz</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Account & Portal</h4>
+          <ul class="footer-links">
+            <li><a href="login.html">Member Login</a></li>
+            <li><a href="registationform.html">Student Registration</a></li>
+            <li><a href="ankesh.html">Home Page</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Project Details</h4>
+          <p style="color: #cbd5e0; font-size: 13.5px; line-height: 1.6;">
+            <strong>Course:</strong> Internet & Web Programming (IWP)<br>
+            <strong>Institution:</strong> IIPS DAVV Indore<br>
+            <strong>Project Lead:</strong> <span class="student-credit">Ankesh</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>BharatGuru &copy; 2026. All Rights Reserved. Coursework Project.</div>
+        <div>
+          Crafted with passion for Indian Tourism by <span class="student-credit">Ankesh (IIPS DAVV)</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Link JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>

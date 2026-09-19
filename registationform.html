@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student & Traveler Registration | BharatGuru</title>
+  <link rel="icon" type="image/png" href="Fevicon.png" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .strength-meter {
+      height: 4px;
+      width: 100%;
+      background: var(--border-color);
+      border-radius: 2px;
+      margin-top: 6px;
+      overflow: hidden;
+    }
+    .strength-bar {
+      height: 100%;
+      width: 0%;
+      transition: width 0.3s ease, background 0.3s ease;
+    }
+  </style>
+</head>
+<body class="auth-page">
+
+  <!-- Auth Navbar -->
+  <nav class="auth-nav">
+    <a href="index.html" class="brand-wrapper">
+      <div class="MainLogo">Bharat<span class="accent">Guru</span> 🇮🇳</div>
+      <div class="sub-txt">IWP Coursework | IIPS DAVV</div>
+    </a>
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <button id="themeToggleBtn" class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle Dark/Light Mode">🌙</button>
+      <a href="index.html" class="btn btn-outline" style="font-size: 13px;">← Back to Home</a>
+    </div>
+  </nav>
+
+  <!-- Registration Main Container -->
+  <main class="auth-container">
+    <div class="auth-card wide">
+      <div class="auth-header">
+        <div style="font-size: 32px; margin-bottom: 8px;">🧳</div>
+        <h2>Join BharatGuru</h2>
+        <p>Create your student / explorer account for customized travel itineraries</p>
+      </div>
+
+      <form id="regForm" action="register_process.php" method="POST" onsubmit="return handleRegistration(event)">
+        <!-- 1. Personal Info -->
+        <div class="form-row-2" style="margin-bottom: 16px;">
+          <div class="form-group">
+            <label class="form-label" for="fname">First Name *</label>
+            <input type="text" id="fname" name="fname" class="form-control" placeholder="e.g. Ankesh" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="lname">Last Name *</label>
+            <input type="text" id="lname" name="lname" class="form-control" placeholder="e.g. Patel" required />
+          </div>
+        </div>
+
+        <div class="form-row-2" style="margin-bottom: 16px;">
+          <div class="form-group">
+            <label class="form-label" for="email">Email Address *</label>
+            <input type="email" id="email" name="email" class="form-control" placeholder="name@domain.com" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="phone">Phone Number *</label>
+            <input type="tel" id="phone" name="phone" class="form-control" placeholder="+91 98765 43210" pattern="[0-9+ -]{10,15}" required />
+          </div>
+        </div>
+
+        <!-- 2. Security & Demographics -->
+        <div class="form-row-2" style="margin-bottom: 16px;">
+          <div class="form-group">
+            <label class="form-label" for="password">Create Password *</label>
+            <div class="input-icon-wrap">
+              <input type="password" id="password" name="password" class="form-control" placeholder="Min. 6 characters" required oninput="checkStrength(this.value)" />
+              <button type="button" class="password-toggle" onclick="togglePasswordVisibility('password', this)">👁</button>
+            </div>
+            <div class="strength-meter">
+              <div id="strengthBar" class="strength-bar"></div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="dob">Date of Birth *</label>
+            <input type="date" id="dob" name="dob" class="form-control" required />
+          </div>
+        </div>
+
+        <!-- 3. Gender & City -->
+        <div class="form-row-2" style="margin-bottom: 16px;">
+          <div class="form-group">
+            <label class="form-label">Gender *</label>
+            <div class="radio-group" style="margin-top: 8px;">
+              <label class="custom-chip">
+                <input type="radio" name="gender" value="male" required /> Male
+              </label>
+              <label class="custom-chip">
+                <input type="radio" name="gender" value="female" /> Female
+              </label>
+              <label class="custom-chip">
+                <input type="radio" name="gender" value="other" /> Other
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="city">Base City / Region *</label>
+            <select id="city" name="city" class="form-control" required>
+              <option value="">-- Select Your City --</option>
+              <optgroup label="Madhya Pradesh (MP)">
+                <option value="Indore" selected>Indore (Cleanest City)</option>
+                <option value="Bhopal">Bhopal (City of Lakes)</option>
+                <option value="Ujjain">Ujjain (Mahakal City)</option>
+                <option value="Gwalior">Gwalior</option>
+                <option value="Jabalpur">Jabalpur</option>
+              </optgroup>
+              <optgroup label="Other Metros & Major Hubs">
+                <option value="Delhi">Delhi / NCR</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Jaipur">Jaipur</option>
+                <option value="Bengaluru">Bengaluru</option>
+                <option value="Kolkata">Kolkata</option>
+                <option value="Ahmedabad">Ahmedabad</option>
+              </optgroup>
+            </select>
+          </div>
+        </div>
+
+        <!-- 4. Travel Interests / Hobbies -->
+        <div class="form-group" style="margin-bottom: 16px;">
+          <label class="form-label">Travel Interests & Hobbies (Select Multiple)</label>
+          <div class="checkbox-group">
+            <label class="custom-chip">
+              <input type="checkbox" name="hobby" value="heritage" checked /> 🏛 Heritage & History
+            </label>
+            <label class="custom-chip">
+              <input type="checkbox" name="hobby" value="food" checked /> 🍢 Street Food & Culinary
+            </label>
+            <label class="custom-chip">
+              <input type="checkbox" name="hobby" value="trekking" /> 🏔 Trekking & Mountains
+            </label>
+            <label class="custom-chip">
+              <input type="checkbox" name="hobby" value="photography" /> 📸 Photography
+            </label>
+            <label class="custom-chip">
+              <input type="checkbox" name="hobby" value="spiritual" /> 🕉 Spiritual Journeys
+            </label>
+            <label class="custom-chip">
+              <input type="checkbox" name="hobby" value="coding" /> 💻 Coding & Tech Tours
+            </label>
+          </div>
+        </div>
+
+        <!-- 5. Message / Bio -->
+        <div class="form-group" style="margin-bottom: 24px;">
+          <label class="form-label" for="message">About Your Dream Travel Destination / Note</label>
+          <textarea id="message" name="message" class="form-control" rows="3" placeholder="Tell us which places in India you want to explore next..."></textarea>
+        </div>
+
+        <!-- Agreement -->
+        <div style="margin-bottom: 24px;">
+          <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-muted); cursor: pointer;">
+            <input type="checkbox" required checked style="accent-color: var(--p-green); width: 16px; height: 16px;">
+            I agree to the BharatGuru community guidelines and travel code of conduct.
+          </label>
+        </div>
+
+        <!-- Submit & Reset -->
+        <div style="display: flex; gap: 14px;">
+          <button type="submit" class="btn btn-primary" style="flex: 2; padding: 13px; font-size: 15px;">
+            Complete Registration →
+          </button>
+          <button type="reset" class="btn btn-outline" style="flex: 1; padding: 13px;" onclick="resetStrength()">
+            Reset
+          </button>
+        </div>
+      </form>
+
+      <div class="auth-footer">
+        Already have an account? <a href="login.html">Sign In here</a>
+      </div>
+
+      <div style="text-align: center; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border-subtle); font-size: 11.5px; color: var(--text-light);">
+        BharatGuru Portal • IIPS DAVV Indore IWP Coursework
+      </div>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+  <script>
+    function togglePasswordVisibility(inputId, btn) {
+      const input = document.getElementById(inputId);
+      if (input.type === 'password') {
+        input.type = 'text';
+        btn.textContent = '🙈';
+      } else {
+        input.type = 'password';
+        btn.textContent = '👁';
+      }
+    }
+
+    function checkStrength(val) {
+      const bar = document.getElementById('strengthBar');
+      if (!val) {
+        bar.style.width = '0%';
+        return;
+      }
+      if (val.length < 6) {
+        bar.style.width = '30%';
+        bar.style.background = '#e53e3e';
+      } else if (val.length < 10) {
+        bar.style.width = '65%';
+        bar.style.background = '#d4a017';
+      } else {
+        bar.style.width = '100%';
+        bar.style.background = '#2d6a4f';
+      }
+    }
+
+    function resetStrength() {
+      document.getElementById('strengthBar').style.width = '0%';
+    }
+
+    function handleRegistration(e) {
+      const fname = document.getElementById('fname').value.trim();
+      const lname = document.getElementById('lname').value.trim();
+      const fullName = `${fname} ${lname}`;
+      localStorage.setItem('bharatguru_current_user', fullName);
+
+      // If running on a web server (e.g. XAMPP localhost), allow native POST to register_process.php
+      if (window.location.protocol.startsWith('http')) {
+        return true; // proceed to PHP backend
+      } else {
+        // Offline file:// fallback
+        e.preventDefault();
+        showToast(`Welcome to BharatGuru, ${fullName}! Account saved to local session.`, 'success');
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 1500);
+        return false;
+      }
+    }
+  </script>
+</body>
+</html>

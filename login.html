@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | BharatGuru India Travel</title>
+  <link rel="icon" type="image/png" href="Fevicon.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="auth-page">
+
+  <!-- Auth Navbar -->
+  <nav class="auth-nav">
+    <a href="index.html" class="brand-wrapper">
+      <div class="MainLogo">Bharat<span class="accent">Guru</span> 🇮🇳</div>
+      <div class="sub-txt">IWP Coursework | IIPS DAVV</div>
+    </a>
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <button id="themeToggleBtn" class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle Dark/Light Mode">🌙</button>
+      <a href="index.html" class="btn btn-outline" style="font-size: 13px;">← Back to Home</a>
+    </div>
+  </nav>
+
+  <!-- Login Main Container -->
+  <main class="auth-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <div style="font-size: 32px; margin-bottom: 8px;">🏛️</div>
+        <h2>Welcome Back</h2>
+        <p>Sign in to access your saved itineraries and travel journals</p>
+      </div>
+
+      <form id="loginForm" action="login_process.php" method="POST" onsubmit="return handleLogin(event)">
+        <!-- Username / Email -->
+        <div class="form-group" style="margin-bottom: 18px;">
+          <label class="form-label" for="loginUser">Username or College Email</label>
+          <input 
+            type="text" 
+            id="loginUser" 
+            name="username" 
+            class="form-control" 
+            placeholder="e.g. ankesh@iips.edu.in or student123" 
+            required 
+            autocomplete="username"
+          />
+        </div>
+
+        <!-- Password with toggle -->
+        <div class="form-group" style="margin-bottom: 18px;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <label class="form-label" for="loginPassword">Password</label>
+            <a href="javascript:void(0)" onclick="showToast('Password reset link sent to your registered email.', 'success')" style="font-size: 12px; color: var(--goldy-dark); font-weight: 600;">Forgot?</a>
+          </div>
+          <div class="input-icon-wrap">
+            <input 
+              type="password" 
+              id="loginPassword" 
+              name="password" 
+              class="form-control" 
+              placeholder="Enter your secret password" 
+              required 
+              autocomplete="current-password"
+            />
+            <button type="button" class="password-toggle" onclick="togglePasswordVisibility('loginPassword', this)" title="Show/Hide Password">👁</button>
+          </div>
+        </div>
+
+        <!-- Remember Me & Demo Login Helper -->
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; flex-wrap: wrap; gap: 8px;">
+          <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; cursor: pointer; color: var(--text-main);">
+            <input type="checkbox" name="remember" checked style="accent-color: var(--p-green); width: 16px; height: 16px;">
+            Remember session
+          </label>
+          <button type="button" onclick="fillDemoUser()" style="background: none; border: none; color: var(--p-green); font-size: 12px; font-weight: 700; cursor: pointer; text-decoration: underline;">
+            ⚡ Quick Demo Fill
+          </button>
+        </div>
+
+        <!-- Form Actions -->
+        <div style="display: flex; gap: 12px;">
+          <button type="submit" class="btn btn-primary" style="flex: 2; padding: 12px;">
+            Sign In →
+          </button>
+          <button type="reset" class="btn btn-outline" style="flex: 1; padding: 12px;">
+            Clear
+          </button>
+        </div>
+      </form>
+
+      <div class="auth-footer">
+        Don't have an account? <a href="registationform.html">Register here</a>
+      </div>
+
+      <div style="text-align: center; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border-subtle); font-size: 11.5px; color: var(--text-light);">
+        BharatGuru Portal • IIPS DAVV Indore IWP Project
+      </div>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+  <script>
+    function togglePasswordVisibility(inputId, btn) {
+      const input = document.getElementById(inputId);
+      if (input.type === 'password') {
+        input.type = 'text';
+        btn.textContent = '🙈';
+      } else {
+        input.type = 'password';
+        btn.textContent = '👁';
+      }
+    }
+
+    function fillDemoUser() {
+      document.getElementById('loginUser').value = 'Ankesh (IIPS DAVV)';
+      document.getElementById('loginPassword').value = 'BharatGuru@2026';
+      showToast('Demo student credentials filled!', 'success');
+    }
+
+    function handleLogin(e) {
+      const user = document.getElementById('loginUser').value.trim();
+      const pass = document.getElementById('loginPassword').value.trim();
+
+      if (user && pass) {
+        localStorage.setItem('bharatguru_current_user', user);
+
+        // If hosted on a web server (e.g. XAMPP localhost), allow native POST to login_process.php
+        if (window.location.protocol.startsWith('http')) {
+          return true; // proceed to PHP backend
+        } else {
+          // Offline file:// fallback
+          e.preventDefault();
+          showToast(`Welcome back, ${user}! Redirecting to home...`, 'success');
+          setTimeout(() => {
+            window.location.href = 'index.html';
+          }, 1200);
+          return false;
+        }
+      } else {
+        e.preventDefault();
+        showToast('Please enter both username and password.', 'error');
+        return false;
+      }
+    }
+  </script>
+</body>
+</html>
